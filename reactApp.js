@@ -50,15 +50,12 @@ class Game extends React.Component {
     Theshooter = (team) => {
         const teamStatsKey = `${team}TeamStats`
         let score = this.state[teamStatsKey].score
-        this.shotSound.play()
+        // this.shotSound.play()
 
 
         if (Math.random() > 0.5) {
             score += 1
-
-            setTimeout(() => {
-                this.scoreSound.play()
-            }, 100)
+            // this.scoreSound.play ()
         }
 
 
@@ -68,9 +65,12 @@ class Game extends React.Component {
                 score
             }
         }))
-        resetGame = () => {
+       
+
+    } 
+    resetGame=(event) => {
             this.setState((state, props)({
-                resetCount: state.resetCount + 1,
+                resetCount: state.resetCount += 1,
                 homeTeamStats: {
                     score: 0,
                     shoot: 0
@@ -86,8 +86,6 @@ class Game extends React.Component {
             }))
         }
 
-    }
-
     render() {
         return (
             <div className="Game">
@@ -98,13 +96,13 @@ class Game extends React.Component {
                         name={this.props.hometeam.name}
                         logo={this.props.hometeam.logoSrc}
                         stats={this.state.homeTeamStats}
-                        Theshooter={this.Theshooter('home')}
+                        Theshooter= {() =>this.Theshooter('home')}
 
                     />
                     <div className="versus">
                         <h1>VS</h1>
                         <div><strong>Reset:</strong> {this.state.resetCount}
-                            <button onClick={resetGame} >Reset Game!</button>
+                            <button onClick={ this.resetGame} >Reset Game!</button>
                         </div>
                     </div>
 
@@ -112,7 +110,7 @@ class Game extends React.Component {
                         name={this.props.visitingteam.name}
                         logo={this.props.visitingteam.logoSrc}
                         stats={this.state.visitingTeamStats}
-                        Theshooter={this.Theshooter('visiting')}
+                        Theshooter={() => this.Theshooter ('visiting')}
                     />
                 </div>
             </div>
